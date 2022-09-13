@@ -31,5 +31,8 @@ app.get("/profile/:id", (req, res) => { profile.handleProfileGet(req, res, db) }
 app.put("/image", (req, res) => { image.handleImage(req, res, db) });
 app.post("/imageurl", (req, res) => { image.handleApiCall(req, res) });
 
-console.log("app running on: " + process.env.PORT);
-
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`App listening on port ${PORT}`);
+  console.log('Press Ctrl+C to quit.');
+});

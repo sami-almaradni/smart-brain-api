@@ -11,11 +11,13 @@ const image = require("./controllers/image.js");
 const db = knex({
     client: 'pg',
     connection: {
-        host: '127.0.0.1',
+        host: 'ec2-34-253-119-24.eu-west-1.compute.amazonaws.com',
         port: 5432,
-        user: 'postgres',
-        password: 'Diab1966@00',
-        database: 'smart-brain'
+        user: 'wmmdmkbeyziwdc',
+        password: '75c7f5954ee20eecaa51e16f8a90f49584c840f867e7e713d2b220ccd3897ec9',
+        database: 'd2pdmphs53smt2',
+        debug: true,
+        ssl: { rejectUnauthorized: false }
     }
 });
 
@@ -34,5 +36,4 @@ app.post("/imageurl", (req, res) => { image.handleApiCall(req, res) });
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
-  console.log('Press Ctrl+C to quit.');
 });

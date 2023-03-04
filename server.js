@@ -8,17 +8,28 @@ const signin = require("./controllers/signin.js");
 const profile = require("./controllers/profile.js");
 const image = require("./controllers/image.js");
 
+const PORT = process.env.PORT || 8080;
+
+const getServerStatus = (port) => {
+  if (port !== 8080) {
+    return {
+      connectionString: process.env.DATABASE_URL,
+      ssl: { rejectUnauthorized: false }
+    };
+  } else {
+    return {
+      host: '127.0.0.1',
+      port: 5432,
+      user: 'postgres',
+      password: 'Diab1966@00',
+      database: 'smart-brain'
+    };
+  }
+}
+
 const db = knex({
   client: 'pg',
-  connection: {
-    // connectionString: process.env.DATABASE_URL,
-    // ssl: { rejectUnauthorized: false },
-    host: '127.0.0.1',
-    port: 5432,
-    user: 'postgres',
-    password: 'Diab1966@00',
-    database: 'smart-brain'
-  }
+  connection: getServerStatus(PORT)
 });
 
 const app = express();
@@ -33,7 +44,6 @@ app.get("/profile/:id", (req, res) => { profile.handleProfileGet(req, res, db) }
 app.put("/image", (req, res) => { image.handleImage(req, res, db) });
 app.post("/imageurl", (req, res) => { image.handleApiCall(req, res) });
 
-const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
 });

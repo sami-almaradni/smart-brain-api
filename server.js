@@ -10,7 +10,7 @@ const image = require("./controllers/image.js");
 
 const PORT = process.env.PORT || 8080;
 
-const getServerStatus = (port) => {
+const getConnectionObj = (port) => {
   if (port !== 8080) {
     return {
       connectionString: process.env.DATABASE_URL,
@@ -29,7 +29,7 @@ const getServerStatus = (port) => {
 
 const db = knex({
   client: 'pg',
-  connection: getServerStatus(PORT)
+  connection: getConnectionObj(PORT)
 });
 
 const app = express();
